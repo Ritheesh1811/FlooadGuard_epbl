@@ -1,0 +1,15 @@
+# Dependency directories
+node_modules/
+FloodGuard/node_modules/
+
+# Build outputs
+dist/
+FloodGuard/dist/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

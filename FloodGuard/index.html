@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <title>Flood Guard | Alert Map</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Fullscreen Map Background -->
+      <div id="map"></div>
+
+      <!-- Floating Glassmorphism Dashboard -->
+      <div class="dashboard">
+        <header class="dashboard-header">
+          <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              <path d="M12 2c3.314 0 6 2.686 6 6s-2.686 6-6 6-6-2.686-6-6 2.686-6 6-6z" stroke-dasharray="2 4"/>
+              <path d="M2.5 12a10 10 0 0 0 19 0"/>
+            </svg>
+            <h1>Flood Guard</h1>
+          </div>
+          <p class="subtitle">Real-Time Disaster Alert System</p>
+        </header>
+
+        <main class="dashboard-content">
+          <div class="search-container">
+            <input type="text" id="location-search" placeholder="Enter a location to analyze..." autocomplete="off">
+            <button id="search-btn" aria-label="Search">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+          </div>
+
+          <!-- Loading State (hidden by default) -->
+          <div id="loading-state" class="hidden">
+            <div class="spinner"></div>
+            <p>Analyzing area patterns...</p>
+          </div>
+
+          <!-- Results Section (hidden by default initially until search) -->
+          <div id="results-panel" class="hidden">
+            <div class="location-header">
+              <h2 id="result-location-name">New York, NY</h2>
+              <span class="date" id="result-date">Today</span>
+            </div>
+            
+            <div class="confidence-dashboard">
+              <div class="score-ring-container">
+                <svg viewBox="0 0 36 36" class="circular-chart">
+                  <path class="circle-bg"
+                    d="M18 2.0845
+                      a 15.9155 15.9155 0 0 1 0 31.831
+                      a 15.9155 15.9155 0 0 1 0 -31.831"
+                  />
+                  <path class="circle" id="score-circle"
+                    stroke-dasharray="0, 100"
+                    d="M18 2.0845
+                      a 15.9155 15.9155 0 0 1 0 31.831
+                      a 15.9155 15.9155 0 0 1 0 -31.831"
+                  />
+                  <text x="18" y="20.35" class="percentage" id="score-text">0%</text>
+                </svg>
+              </div>
+              
+              <div class="risk-details">
+                <h3 class="risk-label" id="risk-label">Safety Score</h3>
+                <p class="risk-desc" id="risk-desc">Enter a location to calculate travel safety based on historical flood patterns.</p>
+              </div>
+            </div>
+
+            <!-- NEW SECTION FOR REAL-TIME DATA -->
+            <div class="realtime-stats mt-4 hidden" id="realtime-stats">
+              <div class="stat-box">
+                <span class="stat-label">Current Rain</span>
+                <span class="stat-value" id="current-rain">0 mm</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">3-Day Forecast</span>
+                <span class="stat-value" id="forecast-rain">0 mm</span>
+              </div>
+            </div>
+
+            <!-- FORECAST SECTION -->
+            <div class="forecast-section hidden" id="forecast-section">
+              <h3 class="forecast-title">Future Prediction</h3>
+              <div class="forecast-list" id="forecast-list">
+                <!-- Forecast items will be injected here -->
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  </body>
+</html>
